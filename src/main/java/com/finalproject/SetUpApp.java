@@ -4,7 +4,7 @@ package com.finalproject;
  * Hello world!
  *
  */
-public class App {
+public class SetUpApp {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }

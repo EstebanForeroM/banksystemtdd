@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
+public class SetUpAppTest {
     /**
      * Rigorous Test :-)
      */
     @Test
     public void testSumNums() {
-        App app = new App();
+        SetUpApp app = new SetUpApp();
         assertTrue(app.sumNums(1, 2) == 3);
     }
 }
