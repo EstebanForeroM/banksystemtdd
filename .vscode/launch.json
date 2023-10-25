@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "preLaunchTask": "Run Jacoco Report", // This should match the label of your task in tasks.json
+            "projectName": "your-project-name"
+        }
+    ]
+}

@@ -1,6 +1,7 @@
 package com.finalproject.entities;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class ProductManager {
@@ -11,15 +12,31 @@ public class ProductManager {
         this.products = new HashSet<>();
     }
 
-    public boolean addProduct(Product product) {
-        return products.add(product); // Returns false if the product is already present
+    public void addProduct(Product product) {
+        if (product == null)
+            throw new IllegalArgumentException("Product cannot be null.");
+        if (products.contains(product))
+            throw new IllegalArgumentException("Product already exists in the system.");
+
+        products.add(product);
     }
 
-    public boolean removeProduct(Product product) {
-        return products.remove(product);
+    public void removeProduct(Product product) {
+        if (product == null)
+            throw new IllegalArgumentException("Product cannot be null.");
+
+        if (products.contains(product) == false)
+            throw new IllegalArgumentException("Product does not exist in the system.");
+
+        products.remove(product);
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public boolean hasProduct(Product product) {
+        return products.contains(product);
     }
+
+    public Iterator<Product> getProductsIterator() {
+        return products.iterator();
+    }
+
 }

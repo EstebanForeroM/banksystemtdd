@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Jacoco Report",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "jacoco:prepare-agent",
+                "test",
+                "install",
+                "jacoco:report"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}

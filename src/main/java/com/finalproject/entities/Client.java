@@ -19,6 +19,9 @@ public class Client {
     }
 
     public void setName(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("Name cannot be null.");
+
         this.name = name;
     }
 
@@ -31,6 +34,9 @@ public class Client {
     }
 
     public void setGender(Gender gender) {
+        if (gender == null)
+            throw new IllegalArgumentException("Gender cannot be null.");
+
         this.gender = gender;
     }
 
