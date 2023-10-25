@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +25,10 @@ public class ClientTest {
         assertEquals("Esteban", client.getName());
         assertEquals(1014, client.getId());
         assertEquals(Gender.MALE, client.getGender());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Client("Esteban", -1542, Gender.MALE);
+        }, "Id cannot be negative.");
     }
 
     @Test
@@ -62,5 +68,15 @@ public class ClientTest {
     @Test
     public void getUserProfilePhotoPath() {
         assertEquals("src\\lib\\img\\default.png", client.getProfilePhotoPath());
+
+        assertThrows(FileNotFoundException.class, () -> {
+            client.setProfilePhotoPath("This is a path//");
+        });
+
+        assertEquals("src\\lib\\img\\default.png", client.getProfilePhotoPath());
+
+        assertDoesNotThrow(() -> {
+            client.setProfilePhotoPath("src\\lib\\img\\default.png");
+        });
     }
 }

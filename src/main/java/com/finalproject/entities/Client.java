@@ -1,5 +1,9 @@
 package com.finalproject.entities;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class Client {
 
     private final int id;
@@ -9,6 +13,8 @@ public class Client {
     private String profilePhotoPath;
 
     public Client(String name, int id, Gender gender) {
+        if (id < 0)
+            throw new IllegalArgumentException("Id cannot be negative.");
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -48,5 +54,13 @@ public class Client {
 
     public String getProfilePhotoPath() {
         return profilePhotoPath;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) throws FileNotFoundException {
+        if (Files.exists(Paths.get(profilePhotoPath))) {
+            this.profilePhotoPath = profilePhotoPath;
+        } else {
+            throw new FileNotFoundException("The file path " + profilePhotoPath + " does not exist");
+        }
     }
 }

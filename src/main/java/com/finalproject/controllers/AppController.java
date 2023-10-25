@@ -1,5 +1,7 @@
 package com.finalproject.controllers;
 
+import java.io.FileNotFoundException;
+
 import com.finalproject.entities.Client;
 import com.finalproject.useCases.ClientController;
 
@@ -17,13 +19,13 @@ public class AppController {
         clientController = new ClientController(clientRepository.getAllClients());
     }
 
-    public void addClient(Client client) {
+    public void addClient(Client client) throws FileNotFoundException {
         clientController.addClient(client);
         clientRepository.saveClient(client);
     }
 
-    public void deleteClient(Client client) {
-        clientController.deleteClient(client);
-        clientRepository.deleteClient(client);
+    public void deleteClient(int id) {
+        clientController.removeClient(id);
+        // clientRepository.deleteClient(client);
     }
 }
