@@ -58,4 +58,9 @@ public class ClientTest {
 
         assert productManager == client.getProductManager();
     }
+
+    @Test
+    public void getUserProfilePhotoPath() {
+        assertEquals("src\\lib\\img\\default.png", client.getProfilePhotoPath());
+    }
 }

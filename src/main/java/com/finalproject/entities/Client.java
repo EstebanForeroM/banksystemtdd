@@ -6,12 +6,14 @@ public class Client {
     private String name;
     private Gender gender;
     private final ProductManager productManager;
+    private String profilePhotoPath;
 
     public Client(String name, int id, Gender gender) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.productManager = new ProductManager();
+        profilePhotoPath = "src\\lib\\img\\default.png";
     }
 
     public String getName() {
@@ -42,5 +44,9 @@ public class Client {
 
     public ProductManager getProductManager() {
         return productManager;
+    }
+
+    public String getProfilePhotoPath() {
+        return profilePhotoPath;
     }
 }
