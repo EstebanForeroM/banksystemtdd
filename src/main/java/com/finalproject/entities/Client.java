@@ -39,6 +39,8 @@ public class Client {
     public void setName(String name) {
         if (name == null)
             throw new IllegalArgumentException("Name cannot be null.");
+        if (name.contains(","))
+            throw new IllegalArgumentException("Name cannot contain ,.");
 
         this.name = name;
     }

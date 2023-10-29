@@ -39,6 +39,8 @@ public class ClientTest {
         assertDoesNotThrow(() -> client.setName("Esteban"));
 
         assertThrows(IllegalArgumentException.class, () -> client.setName(null), "Name cannot be null.");
+
+        assertThrows(IllegalArgumentException.class, () -> client.setName("Esteban,"), "Name cannot contain ,.");
     }
 
     @Test
