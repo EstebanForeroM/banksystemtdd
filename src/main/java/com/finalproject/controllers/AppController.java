@@ -26,7 +26,19 @@ public class AppController {
         clientRepository.deleteClient(id);
     }
 
-    public void updateClient(Client client) {
-        // clientController.updateClient(client);
+    public void updateClient(Client client) throws FileNotFoundException {
+        clientController.updateClient(client);
+    }
+
+    public Client getClientById(int id) {
+        return clientController.getClientById(id);
+    }
+
+    public void getAllClients() {
+        clientController.getClients();
+    }
+
+    public void getClientByName(String name) {
+        clientController.getClientByName(name);
     }
 }

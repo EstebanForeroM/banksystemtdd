@@ -34,6 +34,14 @@ public class ClientController {
         return false;
     }
 
+    public void updateClient(Client client) throws FileNotFoundException {
+        Client oldClient = getClientById(client.getId());
+
+        oldClient.setName(client.getName());
+        oldClient.setGender(client.getGender());
+        oldClient.setProfilePhotoPath(client.getProfilePhotoPath());
+    }
+
     public Client getClientById(int id) {
         for (Client client : clients) {
             if (client.getId() == id) {
@@ -52,6 +60,16 @@ public class ClientController {
         }
 
         return copiedList;
+    }
+
+    public Client getClientByName(String name) {
+        for (Client client : clients) {
+            if (client.getName().equals(name)) {
+                return cloneClient(client);
+            }
+        }
+
+        throw new IllegalArgumentException("Client does not exist");
     }
 
     private Client cloneClient(Client client) {
