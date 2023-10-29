@@ -7,14 +7,11 @@ import com.finalproject.useCases.ClientController;
 
 public class AppController {
 
-    private final UserInterface userInterface;
-
     private final ClientRepository clientRepository;
 
     private final ClientController clientController;
 
     public AppController(UserInterface userInterface, ClientRepository clientRepository) {
-        this.userInterface = userInterface;
         this.clientRepository = clientRepository;
         clientController = new ClientController(clientRepository.getAllClients());
     }
@@ -26,6 +23,10 @@ public class AppController {
 
     public void deleteClient(int id) {
         clientController.removeClient(id);
-        // clientRepository.deleteClient(client);
+        clientRepository.deleteClient(id);
+    }
+
+    public void updateClient(Client client) {
+        // clientController.updateClient(client);
     }
 }

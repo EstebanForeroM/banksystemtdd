@@ -18,7 +18,9 @@ public class ClientController {
             throw new IllegalArgumentException("Client already exists");
         }
 
-        clients.add(cloneClient(client));
+        Client newClient = cloneClient(client);
+
+        clients.add(newClient);
     }
 
     public void removeClient(int id) {

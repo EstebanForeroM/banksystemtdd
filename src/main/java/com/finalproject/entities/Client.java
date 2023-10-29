@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 public class Client {
 
-    private final int id;
+    private int id;
     private String name;
     private Gender gender;
     private final ProductManager productManager;
@@ -22,6 +22,16 @@ public class Client {
         profilePhotoPath = "src\\lib\\img\\default.png";
     }
 
+    public Client(String name, int id, Gender gender, ProductManager productManager) {
+        if (id < 0)
+            throw new IllegalArgumentException("Id cannot be negative.");
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.productManager = productManager;
+        profilePhotoPath = "src\\lib\\img\\default.png";
+    }
+
     public String getName() {
         return name;
     }
@@ -31,6 +41,13 @@ public class Client {
             throw new IllegalArgumentException("Name cannot be null.");
 
         this.name = name;
+    }
+
+    public int setId(int id) {
+        if (id < 0)
+            throw new IllegalArgumentException("Id cannot be negative.");
+
+        return this.id = id;
     }
 
     public int getId() {

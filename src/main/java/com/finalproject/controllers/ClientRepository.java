@@ -1,14 +1,15 @@
 package com.finalproject.controllers;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import com.finalproject.entities.Client;
 
 public interface ClientRepository {
+    void clear();
 
     void saveClient(Client client);
 
-    void deleteClient(Client client);
+    void deleteClient(int id);
 
-    LinkedList<Client> getAllClients();
+    List<Client> getAllClients();
 }
