@@ -6,10 +6,10 @@ import java.util.List;
 
 import com.finalproject.entities.Client;
 
-public class ClientController {
+public class ClientManager {
     private List<Client> clients;
 
-    public ClientController(List<Client> clients) {
+    public ClientManager(List<Client> clients) {
         this.clients = clients;
     }
 

@@ -3,17 +3,17 @@ package com.finalproject.controllers;
 import java.io.FileNotFoundException;
 
 import com.finalproject.entities.Client;
-import com.finalproject.useCases.ClientController;
+import com.finalproject.useCases.ClientManager;
 
 public class AppController {
 
     private final ClientRepository clientRepository;
 
-    private final ClientController clientController;
+    private final ClientManager clientController;
 
     public AppController(UserInterface userInterface, ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        clientController = new ClientController(clientRepository.getAllClients());
+        clientController = new ClientManager(clientRepository.getAllClients());
     }
 
     public void addClient(Client client) throws FileNotFoundException {

@@ -18,12 +18,12 @@ import com.finalproject.entities.Gender;
 
 public class ClientControllerTest {
 
-    private ClientController clientController;
+    private ClientManager clientController;
 
     @BeforeEach
     public void setUp() {
         List<Client> clients = new ArrayList<Client>();
-        clientController = new ClientController(clients);
+        clientController = new ClientManager(clients);
     }
 
     @Test
