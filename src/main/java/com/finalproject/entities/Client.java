@@ -9,20 +9,23 @@ public class Client {
     private int id;
     private String name;
     private Gender gender;
-    private final ProductManager productManager;
+    private final ClientProductManager productManager;
+    private final String password;
     private String profilePhotoPath;
 
-    public Client(String name, int id, Gender gender) {
+    public Client(String name, int id, Gender gender, String password) {
         if (id < 0)
             throw new IllegalArgumentException("Id cannot be negative.");
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.productManager = new ProductManager();
+        this.productManager = new ClientProductManager();
         profilePhotoPath = "src\\lib\\img\\default.png";
+        this.password = password;
+        validations();
     }
 
-    public Client(String name, int id, Gender gender, ProductManager productManager) {
+    public Client(String name, int id, Gender gender, ClientProductManager productManager, String password) {
         if (id < 0)
             throw new IllegalArgumentException("Id cannot be negative.");
         this.id = id;
@@ -30,6 +33,16 @@ public class Client {
         this.gender = gender;
         this.productManager = productManager;
         profilePhotoPath = "src\\lib\\img\\default.png";
+        this.password = password;
+        validations();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
     }
 
     public String getName() {
@@ -67,7 +80,7 @@ public class Client {
         this.gender = gender;
     }
 
-    public ProductManager getProductManager() {
+    public ClientProductManager getProductManager() {
         return productManager;
     }
 
@@ -81,5 +94,23 @@ public class Client {
         } else {
             throw new FileNotFoundException("The file path " + profilePhotoPath + " does not exist");
         }
+    }
+
+    private void validations() {
+        if (name == null)
+            throw new IllegalArgumentException("Name cannot be null.");
+        if (name.contains(","))
+            throw new IllegalArgumentException("Name cannot contain ,.");
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Name cannot be empty.");
+        if (id < 0)
+            throw new IllegalArgumentException("Id cannot be negative.");
+        if (password == null)
+            throw new IllegalArgumentException("Password cannot be null.");
+        if (password.contains(","))
+            throw new IllegalArgumentException("Password cannot contain ,.");
+        if (password.isEmpty())
+            throw new IllegalArgumentException("Password cannot be empty.");
+
     }
 }

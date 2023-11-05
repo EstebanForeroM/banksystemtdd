@@ -3,10 +3,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SetUpApp",
+            "request": "launch",
+            "mainClass": "com.finalproject.SetUpApp",
+            "projectName": "banksystemoop"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "preLaunchTask": "Run Jacoco Report", // This should match the label of your task in tasks.json
+            "preLaunchTask": "Run Jacoco Report",
             "projectName": "your-project-name"
         }
     ]

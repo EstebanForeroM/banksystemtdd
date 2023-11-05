@@ -1,19 +1,48 @@
 package com.finalproject.entities;
 
-public enum Product {
-    SAVINGS_ACCOUNT("Savings Account"),
-    CHECKING_ACCOUNT("Checking Account"),
-    TERM_DEPOSIT_CERTIFICATE("Term Deposit Certificate"),
-    VISA_CARD("Visa Card"),
-    AMERICAN_EXPRESS_CARD("American Express Card");
+import java.io.Serializable;
+import java.util.Date;
 
-    private String productName;
+public abstract class Product implements Serializable {
+    protected final int productId;
+    protected Date openingDate;
+    private final int clientId;
 
-    Product(String productName) {
-        this.productName = productName;
+    private Runnable onDeleteClient;
+
+    public Product(int productId, Date openingDate, int clientId) {
+        this.productId = productId;
+        this.openingDate = openingDate;
+        this.clientId = clientId;
     }
 
-    public String getProductName() {
-        return productName;
+    public int getClientId() {
+        return clientId;
     }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public Date getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(Date openingDate) {
+        if (openingDate == null)
+            throw new IllegalArgumentException("Opening date cannot be null");
+
+        this.openingDate = openingDate;
+    }
+
+    public void OnDeleteClient(Runnable onDeleteClient) {
+        this.onDeleteClient = onDeleteClient;
+    }
+
+    public void deleteClient() {
+        if (onDeleteClient != null)
+            onDeleteClient.run();
+    }
+
+    abstract public String getProductName();
 }

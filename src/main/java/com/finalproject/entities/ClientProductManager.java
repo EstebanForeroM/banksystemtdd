@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ProductManager {
+public class ClientProductManager {
 
     private Set<Product> products;
 
-    public ProductManager() {
+    public ClientProductManager() {
         this.products = new HashSet<>();
     }
 
@@ -18,6 +18,9 @@ public class ProductManager {
         if (products.contains(product))
             throw new IllegalArgumentException("Product already exists in the system.");
 
+        product.OnDeleteClient(() -> {
+            products.remove(product);
+        });
         products.add(product);
     }
 

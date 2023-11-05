@@ -7,11 +7,11 @@ import com.finalproject.useCases.ClientManager;
 
 public class AppController {
 
-    private final ClientRepository clientRepository;
+    private final ClientRepositoryTest clientRepository;
 
     private final ClientManager clientController;
 
-    public AppController(UserInterface userInterface, ClientRepository clientRepository) {
+    public AppController(ClientRepositoryTest clientRepository) {
         this.clientRepository = clientRepository;
         clientController = new ClientManager(clientRepository.getAllClients());
     }

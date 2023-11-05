@@ -56,7 +56,7 @@ public class ClientManager {
         List<Client> copiedList = new ArrayList<>();
 
         for (Client client : clients) {
-            copiedList.add(cloneClient(client));
+            copiedList.add(client);
         }
 
         return copiedList;
@@ -65,7 +65,7 @@ public class ClientManager {
     public Client getClientByName(String name) {
         for (Client client : clients) {
             if (client.getName().equals(name)) {
-                return cloneClient(client);
+                return client;
             }
         }
 
@@ -73,7 +73,7 @@ public class ClientManager {
     }
 
     private Client cloneClient(Client client) {
-        Client newClient = new Client(client.getName(), client.getId(), client.getGender());
+        Client newClient = new Client(client.getName(), client.getId(), client.getGender(), client.getPassword());
         try {
             newClient.setProfilePhotoPath(client.getProfilePhotoPath());
         } catch (FileNotFoundException e) {

@@ -14,4 +14,13 @@ public enum Gender {
     public String getGenderName() {
         return genderName;
     }
+
+    public static Gender fromString(String genderString) {
+        for (Gender gender : Gender.values()) {
+            if (gender.getGenderName().equalsIgnoreCase(genderString)) {
+                return gender;
+            }
+        }
+        throw new IllegalArgumentException("No constant with text " + genderString + " found");
+    }
 }
