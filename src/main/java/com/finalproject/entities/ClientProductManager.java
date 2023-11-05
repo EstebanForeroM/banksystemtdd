@@ -2,6 +2,7 @@ package com.finalproject.entities;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class ClientProductManager {
@@ -34,8 +35,27 @@ public class ClientProductManager {
         products.remove(product);
     }
 
+    public void removeProduct(int productId) {
+
+        Iterator<Product> iterator = products.iterator();
+
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getProductId() == productId) {
+                iterator.remove();
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Product does not exist in the system.");
+    }
+
     public boolean hasProduct(Product product) {
         return products.contains(product);
+    }
+
+    public List<Product> getProducts() {
+        return List.copyOf(products);
     }
 
     public Iterator<Product> getProductsIterator() {

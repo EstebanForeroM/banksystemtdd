@@ -3,43 +3,88 @@ package com.finalproject.controllers;
 import java.io.FileNotFoundException;
 
 import com.finalproject.entities.Client;
+import com.finalproject.entities.Product;
 import com.finalproject.useCases.ClientManager;
+import com.finalproject.useCases.ProductManager;
 
 public class AppController {
 
-    private final ClientRepositoryTest clientRepository;
+    private final ClientRepository clientRepository;
 
-    private final ClientManager clientController;
+    private final ClientManager clientManager;
 
-    public AppController(ClientRepositoryTest clientRepository) {
+    private final ProductRepository productRepository;
+
+    private final ProductManager productManager;
+
+    public AppController(ClientRepository clientRepository, ProductRepository productRepository) {
         this.clientRepository = clientRepository;
-        clientController = new ClientManager(clientRepository.getAllClients());
+        this.productRepository = productRepository;
+        this.productManager = new ProductManager(productRepository.getAllProducts());
+        clientManager = new ClientManager(clientRepository.getAllClients());
+    }
+
+    public void addProductToClient(int clientId, Product product) throws FileNotFoundException {
+        ;
+        clientRepository.saveClient(getClientById(clientId));
     }
 
     public void addClient(Client client) throws FileNotFoundException {
-        clientController.addClient(client);
+        clientManager.addClient(client);
         clientRepository.saveClient(client);
+
+        if (client.getProductManager().getProducts().size() > 0) {
+            throw new IllegalArgumentException("Please use the addProduct to add products to the client.");
+        }
+    }
+
+    public void addProduct(int clientId, Product product) throws FileNotFoundException {
+        productManager.addProduct(product);
+        clientManager.getClientById(clientId).getProductManager().addProduct(product);
+        productRepository.saveProduct(product);
     }
 
     public void deleteClient(int id) {
-        clientController.removeClient(id);
+        clientManager.removeClient(id);
+        productManager.getProductsByClientID(id)
+                .forEach(product -> productManager.removeProduct(product.getProductId()));
         clientRepository.deleteClient(id);
     }
 
     public void updateClient(Client client) throws FileNotFoundException {
-        clientController.updateClient(client);
+        clientManager.updateClient(client);
+        clientRepository.saveClient(client);
+    }
+
+    public void updateProduct(Product product) throws FileNotFoundException {
+        if (productManager.getProductByID(product.getProductId()) == null)
+            throw new IllegalArgumentException("Product cannot be null.");
+
+        if (productManager.getProductByID(product.getProductId()).getClientId() != product.getClientId())
+            throw new IllegalArgumentException(
+                    "The client Id of the given product isn't the same as the product's client Id.");
+
+        productManager.removeProduct(product.getProductId());
+        clientManager.getClientById(product.getClientId()).getProductManager().addProduct(product);
+        productManager.addProduct(product);
+        productRepository.saveProduct(product);
+    }
+
+    public void deleteProduct(int id) {
+        productManager.removeProduct(id);
+        productRepository.deleteProduct(id);
     }
 
     public Client getClientById(int id) {
-        return clientController.getClientById(id);
+        return clientManager.getClientById(id);
     }
 
     public void getAllClients() {
-        clientController.getClients();
+        clientManager.getClients();
     }
 
     public void getClientByName(String name) {
-        clientController.getClientByName(name);
+        clientManager.getClientByName(name);
     }
 
 }

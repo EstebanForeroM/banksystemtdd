@@ -11,7 +11,7 @@ public class ProductManager {
 
     private Set<Integer> productIds;
 
-    ProductManager(List<Product> products) {
+    public ProductManager(List<Product> products) {
         this.products = products;
         for (Product product : products) {
             if (productIds.contains(product.getProductId()))
