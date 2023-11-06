@@ -1,9 +1,12 @@
 package com.finalproject.controllers;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import com.finalproject.entities.Client;
+import com.finalproject.entities.Gender;
 import com.finalproject.entities.Product;
+import com.finalproject.entities.Products.ProductsTypes;
 import com.finalproject.useCases.ClientManager;
 import com.finalproject.useCases.ProductManager;
 
@@ -17,6 +20,19 @@ public class AppController {
 
     private final ProductManager productManager;
 
+    /*
+     * functions to be implemented:
+     * 
+     * findClientById(int id) -> return client
+     * findClientsByName(String name) -> return clients
+     * findClientsByGender(Gender gender) -> return clients
+     * 
+     * findProductById(int id) -> return product
+     * findProductsByProductName(String name) -> return products
+     * findProductsByClientId(int id) -> return products
+     * 
+     */
+
     public AppController(ClientRepository clientRepository, ProductRepository productRepository) {
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
@@ -27,6 +43,30 @@ public class AppController {
     public void addProductToClient(int clientId, Product product) throws FileNotFoundException {
         ;
         clientRepository.saveClient(getClientById(clientId));
+    }
+
+    public Client findClientById(int id) {
+        return clientManager.getClientById(id);
+    }
+
+    public List<Client> findClientsByName(String name) {
+        return clientManager.getClientsByName(name);
+    }
+
+    public List<Client> findClientsByGender(Gender gender) {
+        return clientManager.getClientsByGender(gender);
+    }
+
+    public Product findProductById(int id) {
+        return productManager.getProductByID(id);
+    }
+
+    public List<Product> findProductsByProductType(ProductsTypes productType) {
+        return productManager.getProductsByType(productType);
+    }
+
+    public List<Product> findProductsByClientId(int id) {
+        return productManager.getProductsByClientID(id);
     }
 
     public void addClient(Client client) throws FileNotFoundException {
@@ -84,7 +124,7 @@ public class AppController {
     }
 
     public void getClientByName(String name) {
-        clientManager.getClientByName(name);
+        clientManager.getClientsByName(name);
     }
 
 }

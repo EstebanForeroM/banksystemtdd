@@ -51,12 +51,12 @@ public class ClientControllerTest {
         clientController.addClient(new Client("J", 2, Gender.FEMALE));
         clientController.addClient(new Client("TestClient", 3, Gender.OTHER));
 
-        Client client = clientController.getClientByName("TestClient");
+        Client client = clientController.getClientsByName("TestClient");
         assert client.getName().equals("TestClient");
 
         client.setName("TestClient2");
 
-        assertNotEquals(client.getName(), clientController.getClientByName("TestClient").getName());
+        assertNotEquals(client.getName(), clientController.getClientsByName("TestClient").getName());
     }
 
     @Test

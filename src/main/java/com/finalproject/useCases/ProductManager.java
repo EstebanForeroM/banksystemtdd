@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.finalproject.entities.Product;
+import com.finalproject.entities.Products.ProductsTypes;
 
 public class ProductManager {
     private List<Product> products;
@@ -76,10 +77,10 @@ public class ProductManager {
         return clientProducts;
     }
 
-    public List<Product> getProductsByType(String type) {
+    public List<Product> getProductsByType(ProductsTypes type) {
         List<Product> clientProducts = new ArrayList<Product>();
         for (Product product : products) {
-            if (product.getProductName().equals(type)) {
+            if (product.getProductName().equals(type.getType())) {
                 clientProducts.add(product);
             }
         }

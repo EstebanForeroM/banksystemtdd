@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.finalproject.entities.Client;
+import com.finalproject.entities.Gender;
 
 public class ClientManager {
     private List<Client> clients;
@@ -62,14 +63,28 @@ public class ClientManager {
         return copiedList;
     }
 
-    public Client getClientByName(String name) {
+    public List<Client> getClientsByName(String name) {
+        List<Client> clientsByName = new ArrayList<>();
+
         for (Client client : clients) {
-            if (client.getName().equals(name)) {
-                return client;
+            if (client.getName().contains(name)) {
+                clientsByName.add(client);
             }
         }
 
-        throw new IllegalArgumentException("Client does not exist");
+        return clientsByName;
+    }
+
+    public List<Client> getClientsByGender(Gender gender) {
+        List<Client> clientsByGender = new ArrayList<>();
+
+        for (Client client : clients) {
+            if (client.getGender() == gender) {
+                clientsByGender.add(client);
+            }
+        }
+
+        return clientsByGender;
     }
 
     private Client cloneClient(Client client) {
