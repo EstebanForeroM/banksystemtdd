@@ -28,7 +28,7 @@ public class ProductRepositoryTest {
 
     @AfterAll
     public static void tearDownAfterClass() throws Exception {
-        productRepository.clear();
+        // productRepository.clear();
     }
 
     @BeforeEach
