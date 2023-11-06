@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import com.finalproject.entities.Product;
 import com.finalproject.entities.Products.Card;
 import com.finalproject.entities.Products.Visa;
-import com.finalproject.frameworks.TextFileProductRepository;
+import com.finalproject.frameworks.repositoryLogic.TextFileProductRepository;
 
 public class ProductRepositoryTest {
 

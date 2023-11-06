@@ -1,4 +1,4 @@
-package com.finalproject.frameworks;
+package com.finalproject.frameworks.repositoryLogic;
 
 import com.finalproject.controllers.ProductRepository;
 import com.finalproject.entities.Product;

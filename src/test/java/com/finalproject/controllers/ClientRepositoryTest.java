@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import com.finalproject.entities.Client;
 import com.finalproject.entities.Gender;
-import com.finalproject.frameworks.TextFileClientRepository;
+import com.finalproject.frameworks.repositoryLogic.TextFileClientRepository;
 
 public class ClientRepositoryTest {
 
