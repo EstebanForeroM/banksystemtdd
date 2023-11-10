@@ -3,7 +3,7 @@ package com.finalproject.frameworks.repositoryLogic;
 import com.finalproject.entities.Client;
 import com.finalproject.entities.Gender;
 
-public class ClientSerializer {
+public class ClientSerializer implements Serializer<Client> {
 
     public String serialize(Client client) {
         return client.getId() + "," + client.getName() + "," + client.getGender().getGenderName() + ","

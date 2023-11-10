@@ -2,7 +2,7 @@ package com.finalproject.entities;
 
 import java.util.Date;
 
-public abstract class Product {
+public abstract class Product implements Identifiable {
 
     private String id;
 

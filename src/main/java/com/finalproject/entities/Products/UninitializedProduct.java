@@ -19,7 +19,7 @@ public class UninitializedProduct extends Product {
 
     @Override
     public String getProductName() {
-        return productType.getName();
+        return "Uninitialized product";
     }
 
 }

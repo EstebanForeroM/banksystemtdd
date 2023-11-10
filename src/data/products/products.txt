@@ -1,0 +1,7 @@
+Uninitialized product,001260,123,2023-11-10 07:50:34,Mastercard card
+Mastercard card,001258,123,2023-11-10 07:52:31
+Visa card,001259,123,2023-11-10 07:52:31
+Visa card,001259,123,2023-11-10 07:48:36
+Mastercard card,001257,1533,2023-11-10 07:52:31
+Mastercard card,001257,123,2023-11-10 07:48:36
+Uninitialized product,001260,123,2023-11-10 07:52:31,Mastercard card

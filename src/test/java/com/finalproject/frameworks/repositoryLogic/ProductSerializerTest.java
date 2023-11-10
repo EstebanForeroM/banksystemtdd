@@ -62,4 +62,20 @@ public class ProductSerializerTest {
         assertEquals(originalProduct.getId(), deserializedProduct.getId());
         assertEquals(originalProduct.getOwnerId(), deserializedProduct.getOwnerId());
     }
+
+    @Test
+    public void testSerializationUninitializedProduct() {
+        // Arrange
+        ProductSerializer serializer = new ProductSerializer();
+        Product originalProduct = new UninitializedProduct("1", "42", ProductType.UninitializedProduct);
+
+        // Act
+        String serializedProduct = serializer.serialize(originalProduct);
+        Product deserializedProduct = serializer.deserialize(serializedProduct);
+
+        // Assert
+        assertTrue(deserializedProduct instanceof UninitializedProduct);
+        assertEquals(originalProduct.getId(), deserializedProduct.getId());
+        assertEquals(originalProduct.getOwnerId(), deserializedProduct.getOwnerId());
+    }
 }

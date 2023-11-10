@@ -1,6 +1,6 @@
 package com.finalproject.entities;
 
-public class Client {
+public class Client implements Identifiable {
     private String id;
     private String name;
     private Gender gender;

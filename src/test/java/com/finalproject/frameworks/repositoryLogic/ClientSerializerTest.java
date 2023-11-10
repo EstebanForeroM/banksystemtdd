@@ -1,7 +1,5 @@
 package com.finalproject.frameworks.repositoryLogic;
 
-import java.beans.BeanProperty;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +28,6 @@ public class ClientSerializerTest {
         assert client.getGender().equals(client2.getGender());
         assert client.getPassword().equals(client2.getPassword());
         assert client.getGender() == client2.getGender();
+
     }
 }

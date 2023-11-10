@@ -1,32 +1,46 @@
 package com.finalproject.frameworks.repositoryLogic;
 
+import java.util.List;
+import java.util.Set;
+
 import com.finalproject.entities.Product;
 import com.finalproject.useCases.ProductPersistency;
 
 public class TextProductPersistency implements ProductPersistency {
 
+    private TextPersistency<Product> textPersistency;
+
+    public TextProductPersistency(String filePath, Serializer<Product> serializer) {
+        textPersistency = new TextPersistency<>(filePath, "products.txt", serializer);
+    }
+
     @Override
     public void saveProduct(Product product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveProduct'");
+        textPersistency.saveObject(product);
     }
 
     @Override
     public Product getProduct(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProduct'");
+        return textPersistency.getObject(id);
     }
 
     @Override
     public void deleteProduct(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProduct'");
+        textPersistency.deleteObject(id);
     }
 
     @Override
     public void updateProduct(String id, Product product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
+        textPersistency.updateObject(id, product);
     }
 
+    @Override
+    public Set<Product> getProducts() {
+        return textPersistency.getObjectsList();
+    }
+
+    @Override
+    public void setChangeListener(Runnable callback) {
+        textPersistency.addChangeListener(callback);
+    }
 }
