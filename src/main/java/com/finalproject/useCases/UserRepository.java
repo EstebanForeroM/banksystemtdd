@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.finalproject.entities.Client;
 
-public interface ClientRepository {
+public interface UserRepository {
 
     void saveClient(Client client);
 

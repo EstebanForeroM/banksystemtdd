@@ -1,5 +1,6 @@
 package com.finalproject.useCases;
 
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -8,15 +9,17 @@ import com.finalproject.entities.Gender;
 
 public class UserCreationService {
 
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
     private PasswordManager passwordManager;
 
     Set<String> ids;
     Set<String> passwords;
 
-    UserCreationService(ClientRepository clientRepository, PasswordManager passwordManager) {
+    public UserCreationService(UserRepository clientRepository, PasswordManager passwordManager) {
         this.clientRepository = clientRepository;
         this.passwordManager = passwordManager;
+        ids = new HashSet<String>();
+        passwords = new HashSet<String>();
     }
 
     /*
@@ -25,7 +28,7 @@ public class UserCreationService {
     public String createClient(String name, String password, Gender gender) {
 
         if (passwordManager.validatePassword(password)) {
-            throw new RuntimeException("Password already exists");
+            throw new IllegalArgumentException("Password already exists");
         }
 
         String id = generateId();

@@ -10,7 +10,7 @@ import com.finalproject.frameworks.validations.TokenValidator;
 
 public class TokenProviderTest {
 
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
     private TokenAuthenticationService tokenProvider;
 
     @BeforeEach

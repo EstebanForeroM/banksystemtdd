@@ -6,10 +6,11 @@ import com.finalproject.entities.Gender;
 public class UserModificationService {
 
     private TokenAuthenticationService tokenAuthenticationService;
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
     private PasswordManager passwordManager;
 
-    UserModificationService(TokenAuthenticationService tokenAuthenticationService, ClientRepository clientRepository,
+    public UserModificationService(TokenAuthenticationService tokenAuthenticationService,
+            UserRepository clientRepository,
             PasswordManager passwordManager) {
 
         this.tokenAuthenticationService = tokenAuthenticationService;
@@ -22,7 +23,8 @@ public class UserModificationService {
     }
 
     public void modifyUserPassword(Token token, String passWord) {
-        passwordManager.validatePassword(passWord);
+        if (passwordManager.validatePassword(passWord) == true)
+            throw new IllegalArgumentException("Password already exists");
         userModification(token, null, passWord, null);
     }
 

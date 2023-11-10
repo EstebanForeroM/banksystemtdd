@@ -77,5 +77,13 @@ public class ProductSerializerTest {
         assertTrue(deserializedProduct instanceof UninitializedProduct);
         assertEquals(originalProduct.getId(), deserializedProduct.getId());
         assertEquals(originalProduct.getOwnerId(), deserializedProduct.getOwnerId());
+
+        UninitializedProduct uninitializedProduct = new UninitializedProduct("233", "4343", ProductType.MASTERCARD);
+
+        serializedProduct = serializer.serialize(uninitializedProduct);
+
+        UninitializedProduct uninitializedProduct2 = (UninitializedProduct) serializer.deserialize(serializedProduct);
+
+        assertEquals(uninitializedProduct.getProductType(), uninitializedProduct2.getProductType());
     }
 }

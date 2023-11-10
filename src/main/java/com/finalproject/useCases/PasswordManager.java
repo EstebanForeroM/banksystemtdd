@@ -7,9 +7,9 @@ import com.finalproject.entities.Client;
 
 public class PasswordManager {
     Set<String> passwords;
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
 
-    public PasswordManager(ClientRepository clientRepository) {
+    public PasswordManager(UserRepository clientRepository) {
         this.clientRepository = clientRepository;
         passwords = new HashSet<>();
         clientRepository.setChangeListener(this::OnRepositoryChange);

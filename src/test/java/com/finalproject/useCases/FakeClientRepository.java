@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.finalproject.entities.Client;
 
-public class FakeClientRepository implements ClientRepository {
+public class FakeClientRepository implements UserRepository {
 
     Set<Client> clients;
     Runnable callback;

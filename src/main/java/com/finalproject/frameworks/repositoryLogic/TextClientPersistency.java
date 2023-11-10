@@ -3,9 +3,9 @@ package com.finalproject.frameworks.repositoryLogic;
 import java.util.Set;
 
 import com.finalproject.entities.Client;
-import com.finalproject.useCases.ClientRepository;
+import com.finalproject.useCases.UserRepository;
 
-public class TextClientPersistency implements ClientRepository {
+public class TextClientPersistency implements UserRepository {
 
     private TextPersistency<Client> textPersistency;
 

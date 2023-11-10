@@ -1,6 +1,5 @@
 package com.finalproject.frameworks.repositoryLogic;
 
-import java.util.List;
 import java.util.Set;
 
 import com.finalproject.entities.Product;

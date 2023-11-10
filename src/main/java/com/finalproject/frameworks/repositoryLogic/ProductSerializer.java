@@ -37,7 +37,7 @@ public class ProductSerializer implements Serializer<Product> {
     public Product deserialize(String productString) {
         String[] productData = productString.split(",");
         if (productString.startsWith(ProductType.UninitializedProduct.getName())) {
-            return new UninitializedProduct(productData[1], productData[2], ProductType.getProductType(productData[0]));
+            return new UninitializedProduct(productData[1], productData[2], ProductType.getProductType(productData[4]));
         } else if (productString.startsWith(ProductType.CDT.getName())) {
             return new CDT(productData[1], productData[2], getDateFromString(productData[3]),
                     Integer.parseInt(productData[4]));

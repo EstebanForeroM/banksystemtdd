@@ -1,9 +1,11 @@
 package com.finalproject.useCases;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import com.finalproject.entities.Product;
 import com.finalproject.entities.products.Account;
 import com.finalproject.entities.products.AccountType;
 import com.finalproject.entities.products.CDT;
@@ -17,13 +19,31 @@ public class ProductCreationService {
 
     ProductRepository productRepository;
     private TokenAuthenticationService tokenAuthenticationService;
+    private ProductSearcher productSearcher;
 
-    ProductCreationService(ProductRepository productRepository, TokenAuthenticationService tokenAuthenticationService) {
+    public ProductCreationService(ProductRepository productRepository,
+            TokenAuthenticationService tokenAuthenticationService, ProductSearcher productSearcher) {
         this.productRepository = productRepository;
+        this.productSearcher = productSearcher;
         this.tokenAuthenticationService = tokenAuthenticationService;
+        productIds = new HashSet<>();
     }
 
     public String addProduct(Token token, ProductType productName) {
+
+        Set<Product> clienProducts = productSearcher.getProductsByOwner(token.getClientId());
+
+        for (Product product : clienProducts) {
+            if (product instanceof UninitializedProduct) {
+                UninitializedProduct uninitializedProduct = (UninitializedProduct) product;
+                if (uninitializedProduct.getProductType().getName().equals(productName.getName())) {
+                    throw new RuntimeException("Client already has this product");
+                }
+            } else if (product.getProductName().equals(productName.getName())) {
+                throw new RuntimeException("Client already has this product");
+            }
+        }
+
         if (tokenAuthenticationService.validate(token)) {
             String productId = generateId();
             UninitializedProduct uninitializedProduct = new UninitializedProduct(productId, token.getClientId(),
@@ -35,38 +55,43 @@ public class ProductCreationService {
         }
     }
 
-    public String initializeCard(UninitializedProduct uninitializedProduct, Date date) {
-        String productId = uninitializedProduct.getId();
+    public String initializeCard(String uninitializedProductId, Date date) {
+        String productId = uninitializedProductId;
+        UninitializedProduct uninitializedProduct = (UninitializedProduct) productRepository
+                .getProduct(uninitializedProductId);
         Card card = null;
         for (CardType cardType : CardType.values()) {
-            if (uninitializedProduct.getProductName().contains(cardType.getName())) {
+            if (uninitializedProduct.getProductType().getName().contains(cardType.getName())) {
                 card = new Card(productId, "1233", date, cardType);
             }
         }
 
         if (card == null)
-            throw new RuntimeException("The provided type does not exist");
+            throw new RuntimeException("Invalid product type, expected Card");
 
         productRepository.updateProduct(productId, card);
 
         return productId;
     }
 
-    public String initializeCDT(UninitializedProduct uninitializedProduct, Date date, int expirationMonths) {
-        String productId = uninitializedProduct.getId();
+    public String initializeCDT(String uninitializedProductId, Date date, int expirationMonths) {
+        String productId = uninitializedProductId;
+        UninitializedProduct uninitializedProduct = (UninitializedProduct) productRepository
+                .getProduct(uninitializedProductId);
         CDT cdt = null;
         if (uninitializedProduct.getProductType().getName().contains("CDT")) {
             cdt = new CDT(productId, uninitializedProduct.getOwnerId(), date, expirationMonths);
         } else {
-            throw new RuntimeException("Invalid product type");
+            throw new RuntimeException("Invalid product type, expected CDT");
         }
         productRepository.updateProduct(productId, cdt);
         return productId;
     }
 
-    public String initializeAccount(UninitializedProduct uninitializedProduct, Date date) {
-        String productId = uninitializedProduct.getId();
-
+    public String initializeAccount(String uninitializedProductId, Date date) {
+        String productId = uninitializedProductId;
+        UninitializedProduct uninitializedProduct = (UninitializedProduct) productRepository
+                .getProduct(uninitializedProductId);
         Account account = null;
         for (AccountType accountType : AccountType.values()) {
             if (uninitializedProduct.getProductName().contains(accountType.getName())) {
@@ -75,7 +100,7 @@ public class ProductCreationService {
         }
 
         if (account == null)
-            throw new RuntimeException("The provided type does not exist");
+            throw new RuntimeException("Invalid product type, expected Account");
 
         productRepository.updateProduct(productId, account);
 

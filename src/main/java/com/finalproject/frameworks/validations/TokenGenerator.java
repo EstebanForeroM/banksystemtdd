@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import com.finalproject.useCases.ClientRepository;
+import com.finalproject.useCases.UserRepository;
 import com.finalproject.useCases.Token;
 import com.finalproject.useCases.TokenAuthenticationService;
 
@@ -18,9 +18,9 @@ public class TokenGenerator implements TokenAuthenticationService {
 
     private TokenAuthenticator tokenAuthenticator;
 
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
 
-    public TokenGenerator(TokenAuthenticator tokenAuthenticator, ClientRepository clientRepository) {
+    public TokenGenerator(TokenAuthenticator tokenAuthenticator, UserRepository clientRepository) {
         this.tokenAuthenticator = tokenAuthenticator;
         this.clientRepository = clientRepository;
         clientRepository.setChangeListener(this::onRepositoryChange);

@@ -14,6 +14,7 @@ public class ProductSearcher {
     public ProductSearcher(ProductRepository productRepository) {
         this.productRepository = productRepository;
         productRepository.setChangeListener(this::onRepositoryChange);
+        products = new HashSet<>();
     }
 
     private void onRepositoryChange() {

@@ -6,13 +6,13 @@ import java.util.Set;
 import com.finalproject.entities.Client;
 import com.finalproject.entities.Gender;
 
-public class ClientSearcher {
+public class UserSearcher {
 
-    ClientRepository clientRepository;
+    UserRepository clientRepository;
 
     Set<Client> clients;
 
-    public ClientSearcher(ClientRepository clientRepository) {
+    public UserSearcher(UserRepository clientRepository) {
         this.clientRepository = clientRepository;
         clientRepository.setChangeListener(this::onRepositoryChange);
     }
