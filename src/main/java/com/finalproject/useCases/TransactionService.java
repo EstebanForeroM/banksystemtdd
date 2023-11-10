@@ -8,7 +8,8 @@ public class TransactionService {
     ProductRepository productRepository;
     TokenAuthenticationService tokenAuthenticationService;
 
-    TransactionService(ProductRepository productRepository, TokenAuthenticationService tokenAuthenticationService) {
+    public TransactionService(ProductRepository productRepository,
+            TokenAuthenticationService tokenAuthenticationService) {
         this.productRepository = productRepository;
         this.tokenAuthenticationService = tokenAuthenticationService;
     }

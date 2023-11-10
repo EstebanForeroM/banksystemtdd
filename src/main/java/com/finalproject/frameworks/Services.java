@@ -14,6 +14,7 @@ import com.finalproject.useCases.ProductModificationService;
 import com.finalproject.useCases.ProductRepository;
 import com.finalproject.useCases.ProductSearcher;
 import com.finalproject.useCases.TokenAuthenticationService;
+import com.finalproject.useCases.TransactionService;
 import com.finalproject.useCases.UserCreationService;
 import com.finalproject.useCases.UserModificationService;
 
@@ -30,6 +31,7 @@ public class Services {
     public static ProductSearcher productSearcher;
     public static ProductModificationService productModificationService;
     public static ProductCreationService productCreationService;
+    public static TransactionService transactionService;
 
     public Services() {
         clientRepository = new TextClientPersistency("src\\data\\users", new ClientSerializer());
@@ -44,5 +46,6 @@ public class Services {
         productModificationService = new ProductModificationService(productRepository);
         productCreationService = new ProductCreationService(productRepository, tokenAuthenticationService,
                 productSearcher);
+        transactionService = new TransactionService(productRepository, tokenAuthenticationService);
     }
 }
