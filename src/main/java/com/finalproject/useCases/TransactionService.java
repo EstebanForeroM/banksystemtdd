@@ -6,12 +6,17 @@ import com.finalproject.entities.products.Transactional;
 public class TransactionService {
 
     ProductRepository productRepository;
+    TokenAuthenticationService tokenAuthenticationService;
 
-    TransactionService(ProductRepository productRepository) {
+    TransactionService(ProductRepository productRepository, TokenAuthenticationService tokenAuthenticationService) {
         this.productRepository = productRepository;
+        this.tokenAuthenticationService = tokenAuthenticationService;
     }
 
-    public void deposit(String id, double amount) {
+    public void deposit(Token token, String id, double amount) {
+        if (!tokenAuthenticationService.validate(token))
+            throw new IllegalArgumentException("Invalid token");
+
         Product product = productRepository.getProduct(id);
 
         if (product instanceof Transactional) {
@@ -23,7 +28,10 @@ public class TransactionService {
         }
     }
 
-    public void withdraw(String id, double amount) {
+    public void withdraw(Token token, String id, double amount) {
+        if (!tokenAuthenticationService.validate(token))
+            throw new IllegalArgumentException("Invalid token");
+
         Product product = productRepository.getProduct(id);
 
         if (product instanceof Transactional) {

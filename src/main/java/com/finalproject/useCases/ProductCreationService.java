@@ -31,6 +31,19 @@ public class ProductCreationService {
 
     public String addProduct(Token token, ProductType productName) {
 
+        if (!tokenAuthenticationService.validate(token))
+            throw new IllegalArgumentException("Invalid token");
+
+        comproveRepetition(token, productName);
+
+        String productId = generateId();
+        UninitializedProduct uninitializedProduct = new UninitializedProduct(productId, token.getClientId(),
+                productName);
+        productRepository.saveProduct(uninitializedProduct);
+        return productId;
+    }
+
+    private void comproveRepetition(Token token, ProductType productName) {
         Set<Product> clienProducts = productSearcher.getProductsByOwner(token.getClientId());
 
         for (Product product : clienProducts) {
@@ -42,16 +55,6 @@ public class ProductCreationService {
             } else if (product.getProductName().equals(productName.getName())) {
                 throw new RuntimeException("Client already has this product");
             }
-        }
-
-        if (tokenAuthenticationService.validate(token)) {
-            String productId = generateId();
-            UninitializedProduct uninitializedProduct = new UninitializedProduct(productId, token.getClientId(),
-                    productName);
-            productRepository.saveProduct(uninitializedProduct);
-            return productId;
-        } else {
-            throw new RuntimeException("Invalid token");
         }
     }
 
