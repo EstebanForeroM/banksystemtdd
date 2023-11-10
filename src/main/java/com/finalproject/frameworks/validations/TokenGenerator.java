@@ -8,9 +8,9 @@ import java.util.Set;
 
 import com.finalproject.useCases.ClientRepository;
 import com.finalproject.useCases.Token;
-import com.finalproject.useCases.TokenProvider;
+import com.finalproject.useCases.TokenAuthenticationService;
 
-public class TokenGenerator implements TokenProvider {
+public class TokenGenerator implements TokenAuthenticationService {
 
     Map<String, String> idPassword;
 

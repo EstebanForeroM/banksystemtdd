@@ -1,6 +1,6 @@
 package com.finalproject.useCases;
 
-public interface TokenProvider {
+public interface TokenAuthenticationService {
 
     public Token getToken(String password);
 

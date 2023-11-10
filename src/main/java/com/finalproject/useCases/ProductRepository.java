@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.finalproject.entities.Product;
 
-public interface ProductPersistency {
+public interface ProductRepository {
 
     void saveProduct(Product product);
 

@@ -23,6 +23,11 @@ public class CDT extends Product {
         return expirationMonths;
     }
 
+    public void setExpirationMonths(int expirationMonths) {
+        validateNegativeNumbers(expirationMonths);
+        this.expirationMonths = expirationMonths;
+    }
+
     private void validateNegativeNumbers(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException("Invalid amount");

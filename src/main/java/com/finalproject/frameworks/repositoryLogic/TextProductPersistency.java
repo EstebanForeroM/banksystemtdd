@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.finalproject.entities.Product;
-import com.finalproject.useCases.ProductPersistency;
+import com.finalproject.useCases.ProductRepository;
 
-public class TextProductPersistency implements ProductPersistency {
+public class TextProductPersistency implements ProductRepository {
 
     private TextPersistency<Product> textPersistency;
 

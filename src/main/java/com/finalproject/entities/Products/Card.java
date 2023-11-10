@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.finalproject.entities.Product;
 
-public class Card extends Product {
+public class Card extends Product implements Transactional {
     private CardType type;
 
     public Card(String id, String ownerId, Date openingDate, CardType type) {

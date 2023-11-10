@@ -33,6 +33,10 @@ public abstract class Product implements Identifiable {
 
     public abstract String getProductName();
 
+    public double setBalance(double balance) {
+        return this.balance = balance;
+    }
+
     public double getBalance() {
         return balance;
     }
@@ -59,5 +63,13 @@ public abstract class Product implements Identifiable {
         }
 
         return openingDate;
+    }
+
+    public void setOpeningDate(Date openingDate) {
+        if (openingDate == null)
+            throw new NullPointerException("Opening date can't be null");
+
+        this.openingDate = openingDate;
+
     }
 }

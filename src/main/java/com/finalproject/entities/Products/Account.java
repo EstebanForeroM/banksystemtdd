@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.finalproject.entities.Product;
 
-public class Account extends Product {
+public class Account extends Product implements Transactional {
 
     private AccountType type;
 

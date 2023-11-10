@@ -61,5 +61,15 @@ public class TextProductPersistencyTest {
 
         assert textProductPersistency.getProduct("001257").getOwnerId().equals("1533");
         assert textProductPersistency.getProduct("001257").getProductName().equals("Mastercard card");
+
+        UninitializedProduct uninitializedProduct = new UninitializedProduct("001260", "123", ProductType.MASTERCARD);
+
+        textProductPersistency.saveProduct(uninitializedProduct);
+
+        assert textProductPersistency.getProduct("001260") instanceof UninitializedProduct;
+
+        textProductPersistency.updateProduct("001260", new Card("001260", "1533", new Date(), CardType.MASTERCARD));
+
+        assert textProductPersistency.getProduct("001260") instanceof Card;
     }
 }
