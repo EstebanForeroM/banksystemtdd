@@ -4,17 +4,18 @@ import java.util.Date;
 
 import com.finalproject.entities.Product;
 
-public class Card extends Product {
-    private CardType type;
+public class Account extends Product {
 
-    public Card(String id, String ownerId, Date openingDate, CardType type) {
+    private AccountType type;
+
+    public Account(String id, String ownerId, Date openingDate, AccountType type) {
         super(id, ownerId, openingDate);
         this.type = type;
     }
 
     @Override
     public String getProductName() {
-        return type.getName() + " card";
+        return type.getName() + " account";
     }
 
     public void deposit(double amount) {

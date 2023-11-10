@@ -1,48 +1,71 @@
 package com.finalproject.entities;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 public class Client {
-
-    private int id;
+    private String id;
     private String name;
     private Gender gender;
-    private final ClientProductManager productManager;
-    private final String password;
-    private String profilePhotoPath;
+    private String password;
 
-    public Client(String name, int id, Gender gender, String password) {
-        if (id < 0)
-            throw new IllegalArgumentException("Id cannot be negative.");
+    public Client(String id, String name, Gender gender, String password) {
+        validations(id, name, gender, password);
+        name = name.trim();
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.productManager = new ClientProductManager();
-        profilePhotoPath = "src\\lib\\img\\default.png";
         this.password = password;
-        validations();
     }
 
-    public Client(String name, int id, Gender gender, ClientProductManager productManager, String password) {
-        if (id < 0)
-            throw new IllegalArgumentException("Id cannot be negative.");
+    private void validations(String id, String name, Gender gender, String password) {
+        notNullValidations(gender);
+        idValidations(id);
+        passwordValidation(password);
+        stringFieldValidations(name);
+    }
+
+    private void notNullValidations(Object... objects) {
+        for (Object object : objects) {
+            if (object == null)
+                throw new NullPointerException();
+        }
+    }
+
+    private void idValidations(String id) {
+        notNullValidations(id);
+        if (id.isEmpty())
+            throw new IllegalArgumentException("Product ID must not be empty");
+        comproveOnlyNubers(id);
+    }
+
+    private void passwordValidation(String password) {
+        notNullValidations(password);
+        if (password.length() < 4)
+            throw new IllegalArgumentException("Password must be at least 4 characters long");
+        stringFieldValidations(password);
+    }
+
+    private void stringFieldValidations(String name) {
+        if (name.contains(","))
+            throw new IllegalArgumentException("Name must not contain commas");
+
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Name must not be empty");
+    }
+
+    private void comproveOnlyNubers(String id) {
+        for (int i = 0; i < id.length(); i++) {
+            if (!Character.isDigit(id.charAt(i))) {
+                throw new IllegalArgumentException("Product ID must contain only numbers");
+            }
+        }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        idValidations(id);
         this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.productManager = productManager;
-        profilePhotoPath = "src\\lib\\img\\default.png";
-        this.password = password;
-        validations();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean validatePassword(String password) {
-        return this.password.equals(password);
     }
 
     public String getName() {
@@ -50,23 +73,9 @@ public class Client {
     }
 
     public void setName(String name) {
-        if (name == null)
-            throw new IllegalArgumentException("Name cannot be null.");
-        if (name.contains(","))
-            throw new IllegalArgumentException("Name cannot contain ,.");
-
+        name = name.trim();
+        stringFieldValidations(name);
         this.name = name;
-    }
-
-    public int setId(int id) {
-        if (id < 0)
-            throw new IllegalArgumentException("Id cannot be negative.");
-
-        return this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Gender getGender() {
@@ -74,43 +83,16 @@ public class Client {
     }
 
     public void setGender(Gender gender) {
-        if (gender == null)
-            throw new IllegalArgumentException("Gender cannot be null.");
-
+        notNullValidations(gender);
         this.gender = gender;
     }
 
-    public ClientProductManager getProductManager() {
-        return productManager;
+    public String getPassword() {
+        return password;
     }
 
-    public String getProfilePhotoPath() {
-        return profilePhotoPath;
-    }
-
-    public void setProfilePhotoPath(String profilePhotoPath) throws FileNotFoundException {
-        if (Files.exists(Paths.get(profilePhotoPath))) {
-            this.profilePhotoPath = profilePhotoPath;
-        } else {
-            throw new FileNotFoundException("The file path " + profilePhotoPath + " does not exist");
-        }
-    }
-
-    private void validations() {
-        if (name == null)
-            throw new IllegalArgumentException("Name cannot be null.");
-        if (name.contains(","))
-            throw new IllegalArgumentException("Name cannot contain ,.");
-        if (name.isEmpty())
-            throw new IllegalArgumentException("Name cannot be empty.");
-        if (id < 0)
-            throw new IllegalArgumentException("Id cannot be negative.");
-        if (password == null)
-            throw new IllegalArgumentException("Password cannot be null.");
-        if (password.contains(","))
-            throw new IllegalArgumentException("Password cannot contain ,.");
-        if (password.isEmpty())
-            throw new IllegalArgumentException("Password cannot be empty.");
-
+    public void setPassword(String password) {
+        passwordValidation(password);
+        this.password = password;
     }
 }

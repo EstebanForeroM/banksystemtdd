@@ -1,48 +1,63 @@
 package com.finalproject.entities;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Product implements Serializable {
-    protected final int productId;
-    protected Date openingDate;
-    private final int clientId;
+public abstract class Product {
 
-    private Runnable onDeleteClient;
+    private String id;
 
-    public Product(int productId, Date openingDate, int clientId) {
-        this.productId = productId;
+    private String ownerId;
+
+    protected double balance;
+
+    private Date openingDate;
+
+    public Product(String id, String ownerId, Date openingDate) {
+        comproveOnlyNubers(id);
+        comproveOnlyNubers(ownerId);
+
+        if (openingDate == null)
+            throw new NullPointerException("Opening date can't be null");
+
+        if (id.isEmpty())
+            throw new IllegalArgumentException("Product ID can't be empty");
+
+        if (ownerId.isEmpty())
+            throw new IllegalArgumentException("Owner ID can't be empty");
+
         this.openingDate = openingDate;
-        this.clientId = clientId;
+        this.ownerId = ownerId;
+        this.id = id;
+        balance = 0;
     }
 
-    public int getClientId() {
-        return clientId;
+    public abstract String getProductName();
+
+    public double getBalance() {
+        return balance;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getId() {
+        return id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    private void comproveOnlyNubers(String id) {
+        for (int i = 0; i < id.length(); i++) {
+            if (!Character.isDigit(id.charAt(i))) {
+                throw new IllegalArgumentException("Product ID must contain only numbers");
+            }
+        }
     }
 
     public Date getOpeningDate() {
+        if (openingDate == null) {
+            throw new NullPointerException("Product not initialized");
+        }
+
         return openingDate;
     }
-
-    public void setOpeningDate(Date openingDate) {
-        if (openingDate == null)
-            throw new IllegalArgumentException("Opening date cannot be null");
-
-        this.openingDate = openingDate;
-    }
-
-    public void OnDeleteClient(Runnable onDeleteClient) {
-        this.onDeleteClient = onDeleteClient;
-    }
-
-    public void deleteClient() {
-        if (onDeleteClient != null)
-            onDeleteClient.run();
-    }
-
-    abstract public String getProductName();
 }

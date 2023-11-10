@@ -1,88 +1,70 @@
 package com.finalproject.entities;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.FileNotFoundException;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.finalproject.entities.Products.Card;
-import com.finalproject.entities.Products.Visa;
 
 public class ClientTest {
 
-    private Client client;
+    @Test
+    public void createClient() {
+        Client client = new Client("1014739191", "Esteban", Gender.MALE, "3213");
 
-    @BeforeEach
-    public void setUp() {
-        client = new Client("Esteban", 1014, Gender.MALE);
+        assertThrows(NullPointerException.class, () -> {
+            new Client(null, "Esteban", Gender.MALE, "11312");
+        });
+
+        assertThrows(NullPointerException.class, () -> {
+            new Client("1014739191", null, Gender.MALE, "pasawe");
+        });
+
+        assertThrows(NullPointerException.class, () -> {
+            new Client("1014739191", "Esteban", null, "namina");
+        });
+
+        assert client.getId().equals("1014739191");
+        assert client.getName().equals("Esteban");
+        assert client.getGender() == Gender.MALE;
+        assert client.getPassword().equals("3213");
     }
 
     @Test
-    public void testClientCreation() {
-        assertDoesNotThrow(() -> new Client("Esteban", 1014, Gender.MALE));
-        assertEquals("Esteban", client.getName());
-        assertEquals(1014, client.getId());
-        assertEquals(Gender.MALE, client.getGender());
+    public void changeClientName() {
+        Client client = new Client("1014739191", "Esteban", Gender.MALE, "pasisis");
+
+        assertThrows(NullPointerException.class, () -> {
+            client.setName(null);
+        });
+
+        client.setName("Juan");
+
+        assert client.getName().equals("Juan");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new Client("Esteban", -1542, Gender.MALE);
-        }, "Id cannot be negative.");
+            client.setName("");
+        }, "Name must not be empty");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            client.setName(" ");
+        }, "Name must not be empty");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            client.setName("sf,");
+        }, "Name must not contain ,");
+
+        assert client.getName().equals("Juan");
     }
 
     @Test
-    public void testClientName() {
-        client.setName("Esteban");
-        assertEquals("Esteban", client.getName());
+    public void changeClientGender() {
+        Client client = new Client("1014739191", "Esteban", Gender.MALE, "fsdfsdf");
 
-        assertDoesNotThrow(() -> client.setName("Esteban"));
+        assertThrows(NullPointerException.class, () -> {
+            client.setGender(null);
+        });
 
-        assertThrows(IllegalArgumentException.class, () -> client.setName(null), "Name cannot be null.");
-
-        assertThrows(IllegalArgumentException.class, () -> client.setName("Esteban,"), "Name cannot contain ,.");
-    }
-
-    @Test
-    public void testClientGender() {
         client.setGender(Gender.FEMALE);
 
-        assertEquals(client.getGender(), Gender.FEMALE);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            client.setGender(null);
-        }, "Gender cannot be null.");
-    }
-
-    @Test
-    public void productManager() {
-        ClientProductManager productManager = client.getProductManager();
-
-        assertDoesNotThrow(() -> client.getProductManager());
-
-        assertNotEquals(null, productManager);
-
-        // productManager.addProduct(new Card("123456789", "01/01/2020", new Visa(),
-        // 1000.0f));
-
-        // assert productManager == client.getProductManager();
-    }
-
-    @Test
-    public void getUserProfilePhotoPath() {
-        assertEquals("src\\lib\\img\\default.png", client.getProfilePhotoPath());
-
-        assertThrows(FileNotFoundException.class, () -> {
-            client.setProfilePhotoPath("This is a path//");
-        });
-
-        assertEquals("src\\lib\\img\\default.png", client.getProfilePhotoPath());
-
-        assertDoesNotThrow(() -> {
-            client.setProfilePhotoPath("src\\data\\img\\default.png");
-        });
+        assert client.getGender() == Gender.FEMALE;
     }
 }
