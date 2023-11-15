@@ -36,6 +36,10 @@ public class UserSearcher {
         return clientsById;
     }
 
+    public boolean userExists(String id) {
+        return !getClientsById(id).isEmpty();
+    }
+
     public Set<Client> getClientsByName(String name) {
         Set<Client> clientsByName = new HashSet<>();
 

@@ -19,25 +19,31 @@ public class UserModificationService {
     }
 
     public void modifyUserName(Token token, String name) {
-        userModification(token, name, null, null);
+        userModification(token, name, null, null, null);
+    }
+
+    public void modifyUserPhoto(Token token, String photoPath) {
+        userModification(token, null, null, null, photoPath);
+        Client client = clientRepository.getClient(token.getClientId());
+        client.setPhotoPath(photoPath);
+        clientRepository.updateClient(token.getClientId(), client);
     }
 
     public void modifyUserPassword(Token token, String passWord) {
-        if (passwordManager.validatePassword(passWord) == true)
-            throw new IllegalArgumentException("Password already exists");
-        userModification(token, null, passWord, null);
+        passwordManager.validatePassword(passWord);
+        userModification(token, null, passWord, null, null);
     }
 
     public void modifyUserGender(Token token, Gender gender) {
-        userModification(token, null, null, gender);
+        userModification(token, null, null, gender, null);
     }
 
-    public void modifyUser(Token token, String name, String password, Gender gender) {
+    public void modifyUser(Token token, String name, String password, Gender gender, String photoPath) {
         passwordManager.validatePassword(password);
-        userModification(token, name, password, gender);
+        userModification(token, name, password, gender, photoPath);
     }
 
-    private void userModification(Token token, String name, String password, Gender gender) {
+    private void userModification(Token token, String name, String password, Gender gender, String photoPath) {
         validateToken(token);
         Client client = clientRepository.getClient(token.getClientId());
         if (name != null)

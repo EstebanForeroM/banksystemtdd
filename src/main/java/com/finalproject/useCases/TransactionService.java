@@ -14,16 +14,16 @@ public class TransactionService {
         this.tokenAuthenticationService = tokenAuthenticationService;
     }
 
-    public void deposit(Token token, String id, double amount) {
+    public void deposit(Token token, String productId, double amount) {
         if (!tokenAuthenticationService.validate(token))
             throw new IllegalArgumentException("Invalid token");
 
-        Product product = productRepository.getProduct(id);
+        Product product = productRepository.getProduct(productId);
 
         if (product instanceof Transactional) {
             Transactional transactional = (Transactional) product;
             transactional.deposit(amount);
-            productRepository.updateProduct(id, product);
+            productRepository.updateProduct(productId, product);
         } else {
             throw new IllegalArgumentException("Product is not transactional");
         }

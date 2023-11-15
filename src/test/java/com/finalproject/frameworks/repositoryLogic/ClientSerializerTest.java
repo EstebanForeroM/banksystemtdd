@@ -19,6 +19,7 @@ public class ClientSerializerTest {
     public void testSerialization() {
 
         Client client = new Client("123", "Juan", Gender.MALE, "fsaM");
+        client.setPhotoPath("path");
         String serializedClient = clientSerializer.serialize(client);
 
         Client client2 = clientSerializer.deserialize(serializedClient);
@@ -28,6 +29,7 @@ public class ClientSerializerTest {
         assert client.getGender().equals(client2.getGender());
         assert client.getPassword().equals(client2.getPassword());
         assert client.getGender() == client2.getGender();
+        assert client.getPhotoPath().equals(client2.getPhotoPath());
 
     }
 }

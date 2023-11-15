@@ -27,9 +27,7 @@ public class UserCreationService {
      */
     public String createClient(String name, String password, Gender gender) {
 
-        if (passwordManager.validatePassword(password)) {
-            throw new IllegalArgumentException("Password already exists");
-        }
+        passwordManager.validatePassword(password);
 
         String id = generateId();
 
@@ -38,6 +36,14 @@ public class UserCreationService {
         clientRepository.saveClient(client);
 
         return id;
+    }
+
+    public String createClientWithImage(String name, String password, Gender gender, String fileImagePath) {
+        String clientId = createClient(name, password, gender);
+        Client client = clientRepository.getClient(clientId);
+        client.setPhotoPath(fileImagePath);
+        clientRepository.updateClient(clientId, client);
+        return clientId;
     }
 
     private String generateId() {

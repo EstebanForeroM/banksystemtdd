@@ -24,9 +24,10 @@ public class PasswordManager {
         }
     }
 
-    public boolean validatePassword(String password) {
+    public void validatePassword(String password) {
         if (password == null)
             throw new RuntimeException("Password cannot be null");
-        return passwords.contains(password);
+        if (passwords.contains(password))
+            throw new IllegalArgumentException("Password already exists");
     }
 }

@@ -5,6 +5,7 @@ public class Client implements Identifiable {
     private String name;
     private Gender gender;
     private String password;
+    private String photoPath;
 
     public Client(String id, String name, Gender gender, String password) {
         validations(id, name, gender, password);
@@ -13,6 +14,14 @@ public class Client implements Identifiable {
         this.name = name;
         this.gender = gender;
         this.password = password;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
     }
 
     private void validations(String id, String name, Gender gender, String password) {
