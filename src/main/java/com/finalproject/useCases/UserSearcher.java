@@ -25,6 +25,15 @@ public class UserSearcher {
         clients = clientRepository.getClients();
     }
 
+    public Client getClientById(String id) {
+        for (Client client : clients) {
+            if (client.getId().equals(id)) {
+                return client;
+            }
+        }
+        throw new RuntimeException("Client not found");
+    }
+
     public Set<Client> getClientsById(String id) {
         Set<Client> clientsById = new HashSet<>();
 
