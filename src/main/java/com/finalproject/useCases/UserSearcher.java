@@ -26,6 +26,16 @@ public class UserSearcher {
         clients = clientRepository.getClients();
     }
 
+    public Set<Client> getClientsFromProducts(Set<Product> products) {
+        Set<Client> clients = new HashSet<>();
+
+        for (Product product : products) {
+            clients.add(cloneClient(getClientById(product.getOwnerId())));
+        }
+
+        return clients;
+    }
+
     public Client getClientById(String id) {
         for (Client client : clients) {
             if (client.getId().equals(id)) {

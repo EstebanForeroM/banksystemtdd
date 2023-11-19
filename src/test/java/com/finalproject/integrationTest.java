@@ -38,5 +38,9 @@ public class integrationTest {
         });
 
         Services.productCreationService.initializeCard(productId, new Date());
+
+        ProductType productType = ProductType.CDT;
+
+        Services.userSearcher.getClientsFromProducts(Services.productSearcher.getProductsByType(productType));
     }
 }

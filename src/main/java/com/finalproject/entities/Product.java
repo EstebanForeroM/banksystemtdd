@@ -72,4 +72,13 @@ public abstract class Product implements Identifiable {
         this.openingDate = openingDate;
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Product) {
+            Product product = (Product) obj;
+            return product.getId().equals(this.getId());
+        }
+        return false;
+    }
 }

@@ -104,4 +104,13 @@ public class Client implements Identifiable {
         passwordValidation(password);
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Client) {
+            Client client = (Client) obj;
+            return client.getId().equals(this.getId());
+        }
+        return false;
+    }
 }
