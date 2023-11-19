@@ -110,10 +110,6 @@ public class ProductCreationService {
         return productId;
     }
 
-    public void createProduct() {
-
-    }
-
     private String generateId() {
         String id = generateRandomId();
         while (productIds.contains(id)) {

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.finalproject.entities.Client;
 import com.finalproject.entities.Gender;
+import com.finalproject.entities.Product;
 
 public class UserSearcher {
 
@@ -28,6 +29,15 @@ public class UserSearcher {
     public Client getClientById(String id) {
         for (Client client : clients) {
             if (client.getId().equals(id)) {
+                return client;
+            }
+        }
+        throw new RuntimeException("Client not found");
+    }
+
+    public Client getClientByProduct(Product product) {
+        for (Client client : clients) {
+            if (client.getId() == product.getOwnerId()) {
                 return client;
             }
         }
