@@ -29,7 +29,7 @@ public class UserSearcher {
     public Client getClientById(String id) {
         for (Client client : clients) {
             if (client.getId().equals(id)) {
-                return client;
+                return cloneClient(client);
             }
         }
         throw new RuntimeException("Client not found");
@@ -38,7 +38,7 @@ public class UserSearcher {
     public Client getClientByProduct(Product product) {
         for (Client client : clients) {
             if (client.getId() == product.getOwnerId()) {
-                return client;
+                return cloneClient(client);
             }
         }
         throw new RuntimeException("Client not found");
@@ -49,7 +49,7 @@ public class UserSearcher {
 
         for (Client client : clients) {
             if (client.getId().contains(id))
-                clientsById.add(client);
+                clientsById.add(cloneClient(client));
         }
 
         return clientsById;
@@ -64,7 +64,7 @@ public class UserSearcher {
 
         for (Client client : clients) {
             if (client.getName().contains(name))
-                clientsByName.add(client);
+                clientsByName.add(cloneClient(client));
         }
 
         return clientsByName;
@@ -75,9 +75,13 @@ public class UserSearcher {
 
         for (Client client : clients) {
             if (client.getGender() == gender)
-                clientsByGender.add(client);
+                clientsByGender.add(cloneClient(client));
         }
 
         return clientsByGender;
+    }
+
+    private Client cloneClient(Client client) {
+        return new Client(client.getId(), client.getName(), client.getGender(), "---------");
     }
 }
