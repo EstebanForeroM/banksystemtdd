@@ -1,6 +1,7 @@
 package com.finalproject.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 public abstract class Product implements Identifiable {
 
@@ -80,5 +81,10 @@ public abstract class Product implements Identifiable {
             return product.getId().equals(this.getId());
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

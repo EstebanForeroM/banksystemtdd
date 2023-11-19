@@ -30,7 +30,7 @@ public class UserSearcher {
         Set<Client> clients = new HashSet<>();
 
         for (Product product : products) {
-            clients.add(cloneClient(getClientById(product.getOwnerId())));
+            clients.add(getClientById(product.getOwnerId()));
         }
 
         return clients;

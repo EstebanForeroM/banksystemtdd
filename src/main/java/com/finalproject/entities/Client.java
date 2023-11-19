@@ -1,5 +1,7 @@
 package com.finalproject.entities;
 
+import java.util.Objects;
+
 public class Client implements Identifiable {
     private String id;
     private String name;
@@ -113,4 +115,10 @@ public class Client implements Identifiable {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
 }
