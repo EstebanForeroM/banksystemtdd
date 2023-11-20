@@ -1,6 +1,8 @@
 package com.finalproject.useCases;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.finalproject.entities.Client;
@@ -14,6 +16,7 @@ public class UserSearcher {
     Set<Client> clients;
 
     public UserSearcher(UserRepository clientRepository) {
+        clients = new HashSet<>();
         this.clientRepository = clientRepository;
         clientRepository.setChangeListener(this::onRepositoryChange);
     }
@@ -31,6 +34,17 @@ public class UserSearcher {
 
         for (Product product : products) {
             clients.add(getClientById(product.getOwnerId()));
+        }
+
+        return clients;
+    }
+
+    public List<Client> getClients() {
+
+        List<Client> clients = new ArrayList<>();
+
+        for (Client client : this.clients) {
+            clients.add(cloneClient(client));
         }
 
         return clients;
@@ -92,6 +106,6 @@ public class UserSearcher {
     }
 
     private Client cloneClient(Client client) {
-        return new Client(client.getId(), client.getName(), client.getGender(), "---------");
+        return new Client(client.getId(), client.getName(), client.getGender(), client.getPassword());
     }
 }

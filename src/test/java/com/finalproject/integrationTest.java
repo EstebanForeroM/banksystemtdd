@@ -21,9 +21,9 @@ public class integrationTest {
 
     @Test
     public void test() {
-        Services.userCreationService.createClient("Esteban", "estebj", Gender.MALE, "234234");
+        Services.userCreationService.createClient("Esteban", "estebj", Gender.MALE, "234234", "");
         assertThrows(IllegalArgumentException.class, () -> {
-            Services.userCreationService.createClient("idksad", "estebj", Gender.OTHER, "432243");
+            Services.userCreationService.createClient("idksad", "estebj", Gender.OTHER, "432243", "");
         });
 
         Token token = Services.tokenAuthenticationService.getToken("estebj");

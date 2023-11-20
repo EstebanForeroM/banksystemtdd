@@ -2,6 +2,7 @@ package com.finalproject.frameworks;
 
 import com.finalproject.useCases.UserRepository;
 import com.finalproject.useCases.UserSearcher;
+
 import com.finalproject.frameworks.repositoryLogic.ClientSerializer;
 import com.finalproject.frameworks.repositoryLogic.ProductSerializer;
 import com.finalproject.frameworks.repositoryLogic.TextClientPersistency;
@@ -20,9 +21,9 @@ import com.finalproject.useCases.UserModificationService;
 
 public class Services {
 
-    private UserRepository clientRepository;
-    private ProductRepository productRepository;
-    private PasswordManager passwordManager;
+    static private UserRepository clientRepository;
+    static private ProductRepository productRepository;
+    static private PasswordManager passwordManager;
 
     public static TokenAuthenticationService tokenAuthenticationService;
     public static UserSearcher userSearcher;
@@ -47,5 +48,11 @@ public class Services {
         productCreationService = new ProductCreationService(productRepository, tokenAuthenticationService,
                 productSearcher);
         transactionService = new TransactionService(productRepository, tokenAuthenticationService);
+    }
+
+    public static void addOnClientAddedListener(Runnable listener) {
+        if (clientRepository == null)
+            throw new RuntimeException("Services not initialized");
+        clientRepository.setChangeListener(listener);
     }
 }
