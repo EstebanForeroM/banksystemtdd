@@ -4,6 +4,7 @@ public enum ProductType {
     CDT("CDT"),
     VISA_CARD("Visa card"),
     MASTERCARD("Mastercard card"),
+    AMERICAN_EXPRESS("American Express card"),
     CHECKING_ACCOUNT("Checking account"),
     SAVINGS_ACCOUNT("Savings account"),
     UninitializedProduct("Uninitialized product");

@@ -1,7 +1,6 @@
 package com.finalproject.useCases;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 import com.finalproject.entities.Client;
