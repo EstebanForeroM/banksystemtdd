@@ -24,7 +24,7 @@ public class UserCreationService {
     /*
      * @return id of the created client
      */
-    public void createClient(String name, String password, Gender gender, String clientId) {
+    public void createClient(String name, String password, Gender gender, String clientId, String fileImagePath) {
 
         comproveId(clientId);
 
@@ -32,16 +32,9 @@ public class UserCreationService {
 
         Client client = new Client(clientId, name, gender, password);
 
-        clientRepository.saveClient(client);
-    }
-
-    public String createClientWithImage(String name, String password, Gender gender, String fileImagePath,
-            String clientId) {
-        createClient(name, password, gender, clientId);
-        Client client = clientRepository.getClient(clientId);
         client.setPhotoPath(fileImagePath);
-        clientRepository.updateClient(clientId, client);
-        return clientId;
+
+        clientRepository.saveClient(client);
     }
 
     private void comproveId(String clientId) {
