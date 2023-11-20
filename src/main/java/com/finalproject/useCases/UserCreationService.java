@@ -25,43 +25,29 @@ public class UserCreationService {
     /*
      * @return id of the created client
      */
-    public String createClient(String name, String password, Gender gender) {
+    public void createClient(String name, String password, Gender gender, String clientId) {
+
+        comproveId(clientId);
 
         passwordManager.validatePassword(password);
 
-        String id = generateId();
-
-        Client client = new Client(id, name, gender, password);
+        Client client = new Client(clientId, name, gender, password);
 
         clientRepository.saveClient(client);
-
-        return id;
     }
 
-    public String createClientWithImage(String name, String password, Gender gender, String fileImagePath) {
-        String clientId = createClient(name, password, gender);
+    public String createClientWithImage(String name, String password, Gender gender, String fileImagePath,
+            String clientId) {
+        createClient(name, password, gender, clientId);
         Client client = clientRepository.getClient(clientId);
         client.setPhotoPath(fileImagePath);
         clientRepository.updateClient(clientId, client);
         return clientId;
     }
 
-    private String generateId() {
-        String id = generateRandomId();
-        while (ids.contains(id)) {
-            id = generateRandomId();
+    private void comproveId(String clientId) {
+        if (ids.contains(clientId)) {
+            throw new RuntimeException("Id already exists");
         }
-        return id;
-    }
-
-    private String generateRandomId() {
-        StringBuilder id = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < 10; i++) {
-            id.append(random.nextInt(10));
-        }
-
-        return id.toString();
     }
 }
