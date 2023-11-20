@@ -42,7 +42,7 @@ public class TextPersistency<T extends Identifiable> {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 String[] objectData = data.split(",");
-                objects.put(objectData[0], data);
+                objects.put(objectData[1], data);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

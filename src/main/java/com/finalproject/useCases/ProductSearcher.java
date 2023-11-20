@@ -14,6 +14,7 @@ public class ProductSearcher {
     public ProductSearcher(ProductRepository productRepository) {
         this.productRepository = productRepository;
         productRepository.setChangeListener(this::onRepositoryChange);
+        reloadDTO();
         products = new HashSet<>();
     }
 
@@ -41,6 +42,17 @@ public class ProductSearcher {
 
         for (Product product : products) {
             if (product.getOwnerId().contains(ownerId))
+                productsByOwner.add(product);
+        }
+
+        return productsByOwner;
+    }
+
+    public Set<Product> getProductsByUniqueOwner(String ownerId) {
+        Set<Product> productsByOwner = new HashSet<>();
+
+        for (Product product : products) {
+            if (product.getOwnerId().equals(ownerId))
                 productsByOwner.add(product);
         }
 

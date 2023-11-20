@@ -19,6 +19,7 @@ public class UserSearcher {
         clients = new HashSet<>();
         this.clientRepository = clientRepository;
         clientRepository.setChangeListener(this::onRepositoryChange);
+        reloadDTO();
     }
 
     private void onRepositoryChange() {

@@ -1,0 +1,13 @@
+Mastercard card,001258,123,2023-11-20 01:16:26
+Uninitialized product,6321451906,754,2023-11-20 00:56:24,CDT
+Uninitialized product,6686021373,754,2023-11-20 00:56:24,American Express card
+Uninitialized product,6706381353,75446,2023-11-20 00:56:40,Visa card
+Visa card,001259,123,2023-11-20 01:16:26
+Uninitialized product,0299239865,345345,2023-11-20 00:56:06,Checking account
+Uninitialized product,0258184414,75446,2023-11-20 00:56:40,Checking account
+Mastercard card,001257,1533,2023-11-20 01:16:26
+Uninitialized product,2859077777,75446,2023-11-20 00:56:40,American Express card
+Uninitialized product,8804967909,75446,2023-11-20 00:56:40,Savings account
+Uninitialized product,8409456675,345345,2023-11-20 00:56:06,Savings account
+Uninitialized product,2202030153,75446,2023-11-20 00:56:40,CDT
+Mastercard card,001260,1533,2023-11-20 01:16:26

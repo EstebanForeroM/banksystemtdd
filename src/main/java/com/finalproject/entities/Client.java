@@ -19,7 +19,8 @@ public class Client implements Identifiable {
     }
 
     public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+
+        this.photoPath = photoPath.replace("\\", "/");
     }
 
     public String getPhotoPath() {
@@ -27,6 +28,7 @@ public class Client implements Identifiable {
     }
 
     private void validations(String id, String name, Gender gender, String password) {
+        trimValues(id, name, password);
         notNullValidations(gender);
         idValidations(id);
         passwordValidation(password);
@@ -37,6 +39,12 @@ public class Client implements Identifiable {
         for (Object object : objects) {
             if (object == null)
                 throw new NullPointerException();
+        }
+    }
+
+    private void trimValues(String... values) {
+        for (String value : values) {
+            value = value.trim();
         }
     }
 

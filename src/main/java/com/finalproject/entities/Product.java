@@ -14,6 +14,7 @@ public abstract class Product implements Identifiable {
     private Date openingDate;
 
     public Product(String id, String ownerId, Date openingDate) {
+        trimValues(id, ownerId);
         comproveOnlyNubers(id);
         comproveOnlyNubers(ownerId);
 
@@ -86,5 +87,11 @@ public abstract class Product implements Identifiable {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    private void trimValues(String... values) {
+        for (String value : values) {
+            value = value.trim();
+        }
     }
 }
