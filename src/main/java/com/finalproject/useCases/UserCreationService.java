@@ -26,6 +26,8 @@ public class UserCreationService {
      */
     public void createClient(String name, String password, Gender gender, String clientId, String fileImagePath) {
 
+        validateParametersNotNull(name, password, gender, clientId, fileImagePath);
+
         comproveId(clientId);
 
         passwordManager.validatePassword(password);
@@ -35,6 +37,14 @@ public class UserCreationService {
         client.setPhotoPath(fileImagePath);
 
         clientRepository.saveClient(client);
+    }
+
+    private void validateParametersNotNull(Object... parameters) {
+        for (Object parameter : parameters) {
+            if (parameter == null) {
+                throw new RuntimeException("Parameters cannot be null");
+            }
+        }
     }
 
     private void comproveId(String clientId) {
